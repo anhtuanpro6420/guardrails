@@ -66,6 +66,12 @@ app.post('/api/repo', (req, res, next) => {
     return next(err);
   }
   const repo = makeRepo(req.body.name);
+  const openList = makeList('Open');
+  const confirmedList = makeList('Confirmed');
+  const falsePositiveList = makeList('False Positive');
+  const fixedList = makeList('Fixed');
+  const lists = [openList, confirmedList, falsePositiveList, fixedList];
+  repo.lists = lists;
   REPOS.push(repo);
   return res.status(201).json(repo);
 });
