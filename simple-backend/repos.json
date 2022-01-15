@@ -1,64 +1,72 @@
 [
-    {
-      "name": "Repo 1",
-      "id": "1",
-      "lists": [
-        {
-          "title": "Open",
-          "cards": [
-            {
-              "text": "Vulnerability 1",
-              "id": "w"
-            },
-            {
-              "text": "Vulnerability 2",
-              "id": "x"
-            }
-          ],
-          "id": "a"
-        },
-        {
-          "title": "Confirmed",
-          "cards": [
-            {
-              "text": "Vulnerability 3",
-              "id": "y"
-            },
-            {
-              "text": "Vulnerability 4",
-              "id": "z"
-            }
-          ],
-          "id": "b"
-        },
-        {
-          "title": "False Positive",
-          "cards": [
-            {
-              "text": "Vulnerability 5",
-              "id": "m"
-            },
-            {
-              "text": "Vulnerability 6",
-              "id": "n"
-            }
-          ],
-          "id": "c"
-        },
-        {
-          "title": "Fixed",
-          "cards": [
-            {
-              "text": "Vulnerability 7",
-              "id": "o"
-            },
-            {
-              "text": "Vulnerability 8",
-              "id": "p"
-            }
-          ],
-          "id": "d"
-        }
-      ]
-    }
+  {
+    "name": "Repo 1",
+    "id": "1",
+    "lists": [
+      {
+        "title": "Open",
+        "cards": [
+          {
+            "text": "Vulnerability 1",
+            "id": "w",
+            "note": "Note Vulnerability 1"
+          },
+          {
+            "text": "Vulnerability 2",
+            "id": "x",
+            "note": "Note Vulnerability 2"
+          }
+        ],
+        "id": "a"
+      },
+      {
+        "title": "Confirmed",
+        "cards": [
+          {
+            "text": "Vulnerability 3",
+            "id": "y",
+            "note": "Note Vulnerability 3"
+          },
+          {
+            "text": "Vulnerability 4",
+            "id": "z",
+            "note": "Note Vulnerability 4"
+          }
+        ],
+        "id": "b"
+      },
+      {
+        "title": "False Positive",
+        "cards": [
+          {
+            "text": "Vulnerability 5",
+            "id": "m",
+            "note": "Note Vulnerability 5"
+          },
+          {
+            "text": "Vulnerability 6",
+            "id": "n",
+            "note": "Note Vulnerability 6"
+          }
+        ],
+        "id": "c"
+      },
+      {
+        "title": "Fixed",
+        "cards": [
+          {
+            "text": "Vulnerability 7",
+            "id": "o",
+            "note": "Note Vulnerability 7"
+          },
+          {
+            "text": "Vulnerability 8",
+            "id": "p",
+            "note": "Note Vulnerability 8"
+          }
+        ],
+        "id": "d"
+      }
+    ]
+  }
 ]

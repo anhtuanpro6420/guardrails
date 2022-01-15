@@ -30,10 +30,11 @@ function makeList(title, cards = []) {
   };
 }
 
-function makeCard(text) {
+function makeCard({text, note}) {
   return {
     text,
-    id: uuid.v4()
+    id: uuid.v4(),
+    note
   };
 }
 
@@ -70,14 +71,16 @@ app.post('/api/repo', (req, res, next) => {
 });
 
 app.delete('/api/repo/:id', (req, res) => {
+  const deletedRepo = REPOS.find(repo => repo.id === req.params.id);
   REPOS = REPOS.filter(repo => repo.id !== req.params.id);
-  return res.status(204).send();
+  return res.status(200).send(deletedRepo);
 });
 
 app.put('/api/repo/:id', (req, res, next) => {
   const repoSchema = Joi.object().keys({
     name: Joi.string().required(),
-    id: Joi.string().required()
+    id: Joi.string().required(),
+    lists: Joi.array().required()
   });
   const { error: validationError } = Joi.validate(req.body, repoSchema);
   if (validationError) {
@@ -98,7 +101,8 @@ app.put('/api/repo/:id', (req, res, next) => {
     return next(err);  
   }
   repo.name = req.body.name;
-  return res.status(204).send();
+  repo.lists = req.body.lists;
+  return res.status(200).json(repo);
 });
 
 app.get('/api/repo/:id/list', (req, res, next) => {
@@ -234,7 +238,8 @@ app.post('/api/list/:id/card', (req, res, next) => {
     next(err);
   }
   const cardSchema = Joi.object().keys({
-    text: Joi.string().required()
+    text: Joi.string().required(),
+    note: Joi.string()
   });
   const { error: validationError } = Joi.validate(req.body, cardSchema);
   if (validationError) {
@@ -242,27 +247,30 @@ app.post('/api/list/:id/card', (req, res, next) => {
     err.status = 400;
     next(err);
   }
-  const card = makeCard(req.body.text);
+  const card = makeCard({text: req.body.text, note: req.body.note});
   list.cards.push(card);
   res.status(201).json(card);
 });
 
 app.delete('/api/card/:id', (req, res) => {
+  let deletedCard;
   for (let repo of REPOS) {
     for (let list of repo.lists) {
       const cardIndex = list.cards.findIndex(card => card.id === req.params.id);
-      if (cardIndex) {
+      if (cardIndex > -1) {
+        deletedCard = {...list.cards[cardIndex]};
         list.cards.splice(cardIndex, 1);
         break;
       }
     }
   }
-  res.status(204).send();
+  res.status(200).json(deletedCard);
 });
 
 app.put('/api/card/:id', (req, res, next) => {
   const cardSchema = Joi.object().keys({
     text: Joi.string().required(),
+    note: Joi.string(),
     id: Joi.string().required()
   });
   const { error: validationError } = Joi.validate(req.body, cardSchema);
@@ -287,7 +295,8 @@ app.put('/api/card/:id', (req, res, next) => {
     return next(err);
   }
   card.text = req.body.text;
-  return res.status(204).send();
+  card.note = req.body.note;
+  return res.status(200).json(card);
 });
 
 app.use(function(req, res, next) {
