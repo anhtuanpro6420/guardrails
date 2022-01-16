@@ -34,7 +34,8 @@ function makeCard({text, note}) {
   return {
     text,
     id: uuid.v4(),
-    note
+    note,
+    movedDate: new Date()
   };
 }
 
